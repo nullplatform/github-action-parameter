@@ -1,13 +1,12 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: "Nullplatform Parameter"
+description: "Github Action for query Nullplatform application build parameter"
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  application-id:
+    description: "The application id to query build parameters"
     required: true
-    default: '1000'
-outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+  name:
+    description: "The parameter name to query"
+    required: false
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: "node16"
+  main: "dist/index.js"
