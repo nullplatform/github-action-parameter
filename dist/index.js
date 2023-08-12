@@ -3071,7 +3071,7 @@ async function run() {
       setFailed(`Input "${Input.APPLICATION_ID}" cannot be empty`);
     }
 
-    const parameters = await client.get(`application/${applicationId}/parameters`);
+    const parameters = await client.get(`application/${applicationId}/parameter`);
 
     // eslint-disable-next-line no-restricted-syntax
     for (const { name, value, secret } of parameters) {
