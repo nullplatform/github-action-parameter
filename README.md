@@ -66,7 +66,8 @@ jobs:
       - name: Display Application Parameters
         run: |
           echo "Retrieved Application Parameters:"
-          echo "Parameter Value: ${{ steps.query-params.outputs.asset-s3-bucket }}"
+          echo "Parameter Name: your-parameter-name"
+          echo "Parameter Value: ${{ steps.query-params.outputs.your-parameter-name }}"
 ```
 
 In this example, the GitHub Action queries build parameters for a nullplatform application. You can customize it according to your workflow's requirements by specifying the `application-id` and optionally the name of the parameter you want to query.
