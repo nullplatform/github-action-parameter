@@ -1,78 +1,76 @@
-# Nullplatform Parameter GitHub Action
+<h2 align="center">
+    <a href="https://nullplatform.com" target="blank_">
+        <img height="100" alt="nullplatform" src="https://nullplatform.com/favicon/android-chrome-192x192.png" />
+    </a>
+    <br>
+    <br>
+    Nullplatform Parameter GitHub Action
+    <br>
+</h2>
 
-<p align="center">
-  <a href="https://github.com/nullplatform/github-action-parameter/actions"><img alt="javascript-action status" src="https://github.com/nullplatform/github-action-parameter/workflows/units-test/badge.svg"></a>
-</p>
+## Overview
 
-You can use the GitHub Action to query Nullplatform application build parameter
+The "Nullplatform Parameter" GitHub Action allows you to query and retrieve build parameters for a nullplatform application. It simplifies the process of fetching and using these parameters within your GitHub Actions workflows.
 
-## Code
+## Table of Contents
 
-Install the dependencies
+- [Inputs](#inputs)
+- [Outputs](#outputs)
+- [Usage](#usage)
+- [License](#license)
 
-```bash
-npm install
-```
+## Inputs
 
-Run the tests :heavy_check_mark:
+### `application-id`
 
-```bash
-$ npm test
+- **Description**: The application ID to query build parameters.
+- **Required**: Yes
 
- PASS  ./index.test.js
-  ✓ throws invalid asset (3ms)
-  ✓ creates asset on nullplatform (504ms)
-  ✓ other test (95ms)
-...
-```
+### `name`
 
-## Change action.yml
+- **Description**: The parameter name to query. (Optional)
+- **Required**: No
 
-The action.yml defines the inputs and output for your action.
+## Outputs
 
-Update the action.yml with your name, description, inputs and outputs for your action.
-
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-const core = require('@actions/core');
-...
-
-async function run() {
-  try {
-      ...
-  }
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Package for distribution
-
-Update version in ``package.json`` file and then run:
-
-```bash
-npm run update:version
-```
+This GitHub Action dynamically generates outputs based on the retrieved build parameters. Each build parameter will be available as an output and as a environment variable.
 
 ## Usage
 
-You can now consume the action by referencing the v1 branch
+Here's a common use case for this GitHub Action:
+
+### Use Case: Query Build Parameters
 
 ```yaml
-uses: nullplatform/github-action-asset@v1
-with:
-  name: ${{ secrets.NULLPLATFORM_API_KEY }}
-  type: docker-image
+name: Query Nullplatform Build Parameters
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  query_parameters:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Query Nullplatform Build Parameters
+        id: query-params
+        uses: nullplatform/nullplatform-parameter-action@v1
+        with:
+          application-id: your-app-id
+
+      - name: Display Application Parameters
+        run: |
+          echo "Retrieved Application Parameters:"
+          echo "Parameter Value: ${{ steps.query-params.outputs.asset-s3-bucket }}"
 ```
 
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
+In this example, the GitHub Action queries build parameters for a nullplatform application. You can customize it according to your workflow's requirements by specifying the `application-id` and optionally the name of the parameter you want to query.
+
+## License
+
+This GitHub Action is licensed under the [MIT License](LICENSE).
