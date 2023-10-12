@@ -59,7 +59,7 @@ jobs:
 
       - name: Query Nullplatform Build Parameters
         id: query-params
-        uses: nullplatform/nullplatform-parameter-action@v1
+        uses: nullplatform/github-action-parameter@v1
         with:
           application-id: your-app-id
 
